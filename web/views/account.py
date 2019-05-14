@@ -28,7 +28,6 @@ def login(request):
             user_info = models.UserInfo.objects \
                 .filter(username=username, password=password) \
                 .values('nid', 'username').first()
-            print('--user_info--', user_info)
             if user_info:
                 result['status'] = True
                 request.session['user_info'] = user_info
