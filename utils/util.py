@@ -3,4 +3,8 @@
 
 
 def u_response(status=False, message=None, data=None):
-    return {status, message, data}
+    return {
+        'status': status,
+        'message': message,
+        'data': data
+    }
