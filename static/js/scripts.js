@@ -84,11 +84,11 @@ $("#gotop").click(function () {
     }, 500)
 });
 $("img.thumb").lazyload({
-    placeholder: "../images/occupying.png",
+    placeholder: "/static/images/occupying.png",
     effect: "fadeIn"
 });
 $(".single .content img").lazyload({
-    placeholder: "../images/occupying.png",
+    placeholder: "/static/images/occupying.png",
     effect: "fadeIn"
 });
 $('[data-toggle="tooltip"]').tooltip();
@@ -103,7 +103,7 @@ jQuery.ias({
     triggerPageThreshold: 5,
     onRenderComplete: function () {
         $('.excerpt .thumb').lazyload({
-            placeholder: '../images/occupying.png',
+            placeholder: '/static/images/occupying.png',
             threshold: 400
         });
         $('.excerpt img').attr('draggable', 'false');
@@ -126,8 +126,9 @@ $(window).scroll(function () {
 });
 (function () {
     var oMenu = document.getElementById("rightClickMenu");
+    if (!aLi) return;
+    s
     var aLi = oMenu && oMenu.getElementsByTagName("li");
-    console.log('aLi', aLi);
     for (i = 0; i < aLi.length; i++) {
         aLi[i].onmouseover = function () {
             $(this).addClass('rightClickMenuActive');
@@ -156,14 +157,6 @@ document.onkeydown = function (event) {
         return false
     }
 };
-try {
-    if (window.console && window.console.log) {
-        console.log("\n欢迎访问站长素材！\n\n");
-        console.log("\n请记住我们的网址：%c sc.chinaz.com", "color:red")
-    }
-} catch (e) {
-}
-;
 
 function SiteSearch(send_url, divTgs) {
     var str = $.trim($(divTgs).val());

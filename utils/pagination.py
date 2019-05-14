@@ -27,6 +27,13 @@ class Pagination(object):
             v += 1
         return v
 
+    @property
+    def next_page(self):
+        if (self.total_count == self.current_page):
+            return self.total_count
+        else:
+            return self.current_page + 1
+
     def page_str(self, base_url):
         page_list = []
 

@@ -350,6 +350,11 @@ body, input, button, textarea, select {
     background-color: transparent;
 }
 
+.navbar-default .navbar-nav > li > a.active, .navbar-default .navbar-nav > li > a.active {
+    color: #3399CC;
+    background-color: transparent;
+}
+
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
     color: #3399CC;
     background: none;

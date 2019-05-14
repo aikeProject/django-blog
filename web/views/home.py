@@ -52,18 +52,14 @@ def index(request, *args, **kwargs):
         )
         article_list = article_list[page_info.start:page_info.end]
 
-    page_str = page_info.page_str(base_url=base_url)
-
-    result = u_response()
-    result['status'] = True
-    # result['data'] = json.dumps(list(article_list))
-    result['data'] = {
-        'list': list(article_list),
-        'page': page_info.current_page,
-        'pageSize': page_info.pager_num,
-        'totalCount': page_info.data_count
-    }
-
-    # return HttpResponse(result)
-    # return JsonResponse(result)
-    return render(request=request, template_name='index.html')
+    return render(
+        request=request,
+        template_name='index.html',
+        context={
+            'article_type_list': article_type_list,
+            'article_type_id': article_type_id,
+            'article_list': article_list,
+            'page_info': page_info,
+            'page_count_list': [(i + 1) for i in range(page_info.total_count)]
+        }
+    )
