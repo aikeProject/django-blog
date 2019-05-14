@@ -43,10 +43,11 @@
                 </div>
                 {% for item in article_list %}
                     <article class="excerpt excerpt-1" style="">
-                        <a class="focus" href="#" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank">
+                        {% comment %}<a class="focus" href="#" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank">
                             <img class="thumb" data-original="/static/images/201610181739277776.jpg"
                                  src="/static/images/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"
-                                 style="display: inline;"></a>
+                                 style="display: inline;">
+                        </a>{% endcomment %}
                         <header>
                             <a class="cat" href="#" title="MZ-NetBlog主题">{{ item.title }}<i></i></a>
                             <h2>
