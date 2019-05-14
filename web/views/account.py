@@ -3,7 +3,7 @@
 import json
 from io import BytesIO
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from utils.util import u_response
 from utils.check_code import create_validate_code
 from ..forms.account_forms import LoginForm
@@ -69,4 +69,5 @@ def logout(request):
     退出登录
     :return:
     """
-    pass
+    request.session.clear()
+    return redirect('/')

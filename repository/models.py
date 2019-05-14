@@ -32,6 +32,9 @@ class UserInfo(models.Model):
         through_fields=('user', 'follower')
     )
 
+    def __str__(self):
+        return self.username
+
 
 class Blog(models.Model):
     """
@@ -44,6 +47,9 @@ class Blog(models.Model):
     theme = models.CharField(verbose_name='博客主题', max_length=32)
     # 一对一
     user = models.OneToOneField(to='UserInfo', to_field='nid')
+
+    def __str__(self):
+        return self.title
 
 
 class UserFans(models.Model):
@@ -68,6 +74,9 @@ class Category(models.Model):
     title = models.CharField(verbose_name='分类标题', max_length=32)
     # 一对多
     blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid')
+
+    def __str__(self):
+        return self.title
 
 
 class Article(models.Model):
