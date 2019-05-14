@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 class Pagination(object):
     def __init__(self, current_page, data_count, per_page_count=10, pager_num=7):
         try:
-            self.current_page = int(current_page)
+            self.current_page = int(current_page) if int(current_page) > 0 else 1
         except Exception as e:
             self.current_page = 1
         self.data_count = data_count

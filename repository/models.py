@@ -120,6 +120,9 @@ class ArticleDetail(models.Model):
     content = models.TextField(verbose_name='文章内容', )
     article = models.OneToOneField(verbose_name='所属文章', to='Article', to_field='nid')
 
+    def __str__(self):
+        return self.content
+
 
 class UpDown(models.Model):
     """
@@ -157,6 +160,9 @@ class Tag(models.Model):
     nid = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name='标签名称', max_length=32)
     blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid')
+
+    def __str__(self):
+        return self.title
 
 
 class Article2Tag(models.Model):
