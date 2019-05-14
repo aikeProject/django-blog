@@ -19,8 +19,6 @@ class LoginForm(BaseForm, forms.Form):
         }
     )
 
-    # password = fields.CharField()
-
     password = fields.RegexField(
         regex='^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$\%\^\&\*\(\)])[0-9a-zA-Z!@#$\%\^\&\*\(\)]{8,32}$',
         min_length=12,
@@ -32,3 +30,15 @@ class LoginForm(BaseForm, forms.Form):
             'max_length': '用户名长度不大于32字符'
         }
     )
+
+    # 过期时间
+    rmb = fields.IntegerField(required=False)
+
+    check_code = fields.CharField(
+        max_length=4,
+        error_messages={'required': '验证码错误', 'max_length': '验证码错误'}
+    )
+
+    def clean_check_code(self):
+        if self.request.session.get('CheckCode').upper() != self.request.POST.get('check_code').upper():
+            raise ValidationError(message='验证码错误', code='invalid')

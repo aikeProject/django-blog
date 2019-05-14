@@ -14,9 +14,10 @@ class UserInfo(models.Model):
     password = models.CharField(
         verbose_name='密码',
         max_length=64,
-        validators=[RegexValidator(
-            regex='^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$\%\^\&\*\(\)])[0-9a-zA-Z!@#$\%\^\&\*\(\)]{8,32}$',
-            message='密码必须包含数字，字母、特殊字符')])
+        validators=[
+            RegexValidator(regex='^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$\%\^\&\*\(\)])[0-9a-zA-Z!@#$\%\^\&\*\(\)]{8,32}$',
+                           message='密码必须包含数字，字母、特殊字符')
+        ])
     nickname = models.CharField(verbose_name='昵称', max_length=64)
     email = models.EmailField(verbose_name='邮箱', unique=True)
     avatar = models.ImageField(verbose_name='头像', upload_to='static/avatar')
