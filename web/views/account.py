@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from utils.util import u_response
 from ..forms.account_forms import LoginForm
+from repository import models
 
 
 # Create your views here.
@@ -22,9 +23,18 @@ def login(request):
         result = u_response()
         form = LoginForm(request=request, data=request.POST)
         if form.is_valid():
-            result['message'] = 'True'
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user_info = models.UserInfo.objects \
+                .filter(username=username, password=password) \
+                .values('nid', 'username').first()
+            print('--user_info--', user_info)
+            if user_info:
+                result['status'] = True
+                request.session['user_info'] = user_info
+            else:
+                result['message'] = '用户名、密码错误'
         else:
-            result['message'] = 'False'
-            result['data'] = json.loads(form.errors.as_json())
-            pass
+            result['status'] = False
+            result['message'] = json.loads(form.errors.as_json())
         return HttpResponse(json.dumps(result))

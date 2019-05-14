@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import RegexValidator, EmailValidator
 
 
 # Create your models here.
@@ -10,7 +11,12 @@ class UserInfo(models.Model):
 
     nid = models.BigAutoField(primary_key=True)
     username = models.CharField(verbose_name='用户名', max_length=32, unique=True)
-    password = models.CharField(verbose_name='密码', max_length=64)
+    password = models.CharField(
+        verbose_name='密码',
+        max_length=64,
+        validators=[RegexValidator(
+            regex='^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$\%\^\&\*\(\)])[0-9a-zA-Z!@#$\%\^\&\*\(\)]{8,32}$',
+            message='密码必须包含数字，字母、特殊字符')])
     nickname = models.CharField(verbose_name='昵称', max_length=64)
     email = models.EmailField(verbose_name='邮箱', unique=True)
     avatar = models.ImageField(verbose_name='头像', upload_to='static/avatar')

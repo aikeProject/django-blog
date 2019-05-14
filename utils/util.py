@@ -6,5 +6,6 @@ def u_response(status=False, message=None, data=None):
     return {
         'status': status,
         'message': message,
-        'data': data
+        'data': data,
+        'errorCode': ''
     }
