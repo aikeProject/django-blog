@@ -111,6 +111,9 @@ class Article(models.Model):
         through_fields=('article', 'tag')
     )
 
+    def __str__(self):
+        return self.title
+
 
 class ArticleDetail(models.Model):
     """
@@ -147,9 +150,12 @@ class Comment(models.Model):
     nid = models.BigAutoField(primary_key=True)
     content = models.CharField(verbose_name='评论内容', max_length=255)
     create_time = models.DateTimeField(verbose_name='评论时间', auto_now_add=True)
-    reply = models.ForeignKey(verbose_name='回复评论', to='self', related_name='back', null=True)
+    reply = models.ForeignKey(verbose_name='回复评论', to='self', related_name='back', null=True, blank=True)
     article = models.ForeignKey(verbose_name='评论文章', to='Article', to_field='nid')
     user = models.ForeignKey(verbose_name='评论人', to='UserInfo', to_field='nid')
+
+    def __str__(self):
+        return self.user.username
 
 
 class Tag(models.Model):
