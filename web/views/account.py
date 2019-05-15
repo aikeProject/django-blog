@@ -18,7 +18,10 @@ def register(request):
     :param request:
     :return:
     """
-    pass
+    if request.method == 'GET':
+        return render(request=request, template_name='register.html')
+    else:
+        pass
 
 
 def login(request):
@@ -42,6 +45,8 @@ def login(request):
             if user_info:
                 result['status'] = True
                 request.session['user_info'] = user_info
+                if form.cleaned_data.get('rmb'):
+                    request.session.set_expiry(60 * 60 * 24 * 30)
             else:
                 result['message'] = '用户名、密码错误'
         else:

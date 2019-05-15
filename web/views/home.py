@@ -19,12 +19,7 @@ def index(request, *args, **kwargs):
 
     article_type_list = models.Article.type_choices
 
-    if kwargs['article_type_id']:
-        article_type_id = int(kwargs['article_type_id'])
-    else:
-        article_type_id = None
-
-    if kwargs['article_type_id']:
+    if kwargs:
         # 获取文章列表 按时间排序倒序
         article_list = models.Article.objects \
             .filter(**kwargs) \
@@ -79,7 +74,6 @@ def index(request, *args, **kwargs):
         template_name='index.html',
         context={
             'article_type_list': article_type_list,
-            'article_type_id': article_type_id,
             'article_list': article_list,
             'page_info': page_info,
             'page_count_list': [(i + 1) for i in range(page_info.total_count)],

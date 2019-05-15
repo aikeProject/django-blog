@@ -35,6 +35,26 @@
     <header class="header">
         <nav class="navbar navbar-default" id="navbar">
             <div class="container">
+                <div class="header-topbar hidden-xs link-border clearfix">
+                    {% if request.session.user_info %}
+                        <div class="pull-right clearfix">
+                            <span>欢迎，{{ request.session.user_info.username }}</span>
+                            <button type="button" class="btn btn-info btn-xs">管理</button>
+                            <a href="/logout">
+                                <button type="button" class="btn btn-info btn-xs">退出登录</button>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="pull-right clearfix">
+                            <a href="/login">
+                                <button type="button" class="btn btn-primary btn-xs">登录</button>
+                            </a>
+                            <a href="/register">
+                                <button type="button" class="btn btn-info btn-xs">注册</button>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                             data-target="#header-navbar" aria-expanded="false"><span class="sr-only"></span> <span
