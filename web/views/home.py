@@ -90,6 +90,24 @@ def index(request, *args, **kwargs):
     )
 
 
+def home(request, site):
+    """
+    个人主页
+    :param request:
+    :param site:
+    :return:
+    """
+
+    blog = models.Blog.objects.first(site=site).select_related('user').first()
+
+    # 没有这个博客 跳转到首页
+    if not blog:
+        redirect('/')
+
+    tag_list = models.Tag.objects.filter(site=site)
+    category_list = models.Category.objects.filter(site=site)
+
+
 def not_found(request):
     from django.shortcuts import render_to_response
     return render_to_response(template_name='404.html', status=404)
