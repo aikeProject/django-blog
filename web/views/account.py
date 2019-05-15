@@ -2,11 +2,11 @@
 # -*- coding:utf-8 -*-
 import json
 from io import BytesIO
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from utils.util import u_response
 from utils.check_code import create_validate_code
-from ..forms.account_forms import LoginForm
+from ..forms.account_forms import LoginForm, RegisterForm
 from repository import models
 
 
@@ -21,7 +21,21 @@ def register(request):
     if request.method == 'GET':
         return render(request=request, template_name='register.html')
     else:
-        pass
+        form = RegisterForm(request=request, data=request.POST)
+        result = u_response()
+        if form.is_valid():
+            models.UserInfo.objects.create(
+                username=request.POST['username'],
+                password=request.POST['password'],
+                email=request.POST['email']
+            )
+            result['status'] = True
+            result['message'] = '注册成功'
+        else:
+            result['status'] = False
+            result['message'] = json.loads(form.errors.as_json())
+
+    return JsonResponse(result)
 
 
 def login(request):
@@ -52,7 +66,7 @@ def login(request):
         else:
             result['status'] = False
             result['message'] = json.loads(form.errors.as_json())
-        return HttpResponse(json.dumps(result))
+        return JsonResponse(result)
 
 
 def check_code(request):
