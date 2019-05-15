@@ -15,8 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from web.views import home
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include('web.urls'))
-]
+if settings.DEBUG is False:
+    urlpatterns = [
+        url(r'^admin/', admin.site.urls),
+        url(r'^', include('web.urls'), {'document_root': settings.STATIC_ROOT})
+    ]
+else:
+    urlpatterns = [
+        url(r'^admin/', admin.site.urls),
+        url(r'^', include('web.urls'))
+    ]
+
+handler404 = home.not_found

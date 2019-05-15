@@ -3,16 +3,16 @@
 import json
 
 from django.http import HttpResponse, JsonResponse
+from django.db.models import Max
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from repository import models
 from utils.pagination import Pagination
-from utils.util import u_response
 
 
 def index(request, *args, **kwargs):
     """
-    首页
+    公共 首页
     :param request:
     :return:
     """
@@ -64,6 +64,16 @@ def index(request, *args, **kwargs):
 
         article_list = article_list[page_info.start:page_info.end]
 
+    article_all = models.Article.objects.all()
+    #  查看最多的数据
+    article_hot = article_all.aggregate(Max('read_count'))
+    article_hot_one = models.Article.objects \
+        .filter(read_count=article_hot['read_count__max']) \
+        .values('title', 'summary', 'create_time').first()
+
+    # 日志总篇数
+    article_sum = article_all.count()
+
     return render(
         request=request,
         template_name='index.html',
@@ -73,6 +83,13 @@ def index(request, *args, **kwargs):
             'article_list': article_list,
             'page_info': page_info,
             'page_count_list': [(i + 1) for i in range(page_info.total_count)],
-            'article_comment_list': article_comment_list
+            'article_comment_list': article_comment_list,
+            'article_hot_one': article_hot_one,
+            'article_sum': article_sum
         }
     )
+
+
+def not_found(request):
+    from django.shortcuts import render_to_response
+    return render_to_response(template_name='404.html', status=404)
