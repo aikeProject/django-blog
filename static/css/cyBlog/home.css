@@ -1,8 +1,8 @@
 #blogTitle {
-    background: url(/static/images/title-yellow.png) no-repeat center 21px, url(/static/images/body_bg.png) repeat-x scroll 0 0 #f0eef5;
+    background: url(/static/images/title-yellow.png) no-repeat center 21px;
     height: 314px;
     clear: both;
-    min-width: 1200px;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative
 }

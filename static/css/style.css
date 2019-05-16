@@ -215,6 +215,7 @@ body, input, button, textarea, select {
 }
 
 .header {
+    background: url(/static/images/body_bg.png) repeat-x scroll 0 0 #f0eef5;
 }
 
 .header-topbar {
@@ -496,7 +497,7 @@ body, input, button, textarea, select {
 .content-wrap {
     width: 100%;
     float: left;
-    min-height: 1000px;
+    /*min-height: 1000px;*/
 }
 
 .content {
@@ -2078,7 +2079,7 @@ body, input, button, textarea, select {
     }
 
     .excerpt {
-        padding: 10px 10px 10px 120px;
+        padding: 10px 10px 10px 10px;
     }
 
     .excerpt .focus {
@@ -2117,6 +2118,7 @@ body, input, button, textarea, select {
 
     .excerpt h2, .excerpt h2:before {
         height: 36px;
+        line-height: 36px;
     }
 
     .excerpt h2 > *:first-child {
@@ -2421,7 +2423,7 @@ body, input, button, textarea, select {
     }
 }
 
-.plinks li a:hover {
+.plinks li a:hover, .plinks li a.active {
     border-color: #3399CC;
     color: #3399CC;
     -webkit-transform: scale(1.05);

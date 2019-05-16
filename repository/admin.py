@@ -29,6 +29,10 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('nid', 'title', 'blog')
 
 
+class Article2TagAdmin(admin.ModelAdmin):
+    list_display = ('article', 'tag')
+
+
 admin.site.register(repository.UserInfo, UserInfoAdmin)
 admin.site.register(repository.Blog, BlogAdmin)
 admin.site.register(repository.UserFans)
@@ -38,4 +42,4 @@ admin.site.register(repository.Tag, TagAdmin)
 admin.site.register(repository.Category, CategoryAdmin)
 admin.site.register(repository.ArticleDetail)
 admin.site.register(repository.Comment, CommentAdmin)
-admin.site.register(repository.Article2Tag)
+admin.site.register(repository.Article2Tag, Article2TagAdmin)

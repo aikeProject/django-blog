@@ -38,13 +38,27 @@
                                 {% if item == page_info.current_page %}
                                     <li class="active"><span>{{ item }}</span></li>
                                 {% else %}
-                                    <li><a href="{{ site }}?page={{ item }}">{{ item }}</a></li>
+                                    {% if condition and val_nid %}
+                                        <li class="next-page">
+                                            <a href="/{{ site }}/{{ condition }}/{{ val_nid }}?page={{ item }}">下一页</a>
+                                        </li>
+                                    {% else %}
+                                        <li><a href="{{ site }}?page={{ item }}">{{ item }}</a></li>
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
                             {% if page_info.current_page == page_info.next_page %}
                                 <li class="next-page"><a href="">下一页</a></li>
                             {% else %}
-                                <li class="next-page"><a href="{{ site }}?page={{ page_info.next_page }}">下一页</a></li>
+                                {% if condition and val_nid %}
+                                    <li class="next-page">
+                                        <a href="/{{ site }}/{{ condition }}/{{ val_nid }}?page={{ page_info.next_page }}">下一页</a>
+                                    </li>
+                                {% else %}
+                                    <li class="next-page"><a href="{{ site }}?page={{ page_info.next_page }}">下一页</a>
+                                    </li>
+                                {% endif %}
+
                             {% endif %}
                             <li><span>共 {{ page_info.total_count }} 页</span></li>
                         </ul>
@@ -76,10 +90,18 @@
                         <ul class="plinks ptags">
                             {% for item in category_list %}
                                 <li>
-                                    <a href="{{ site }}/{{ item.nid }}" title="{{ item.title }}" draggable="false">
-                                        {{ item.title }}
-                                        {#                                        <span class="badge">1</span>#}
-                                    </a>
+                                    {% if val_nid == item.nid and condition == 'category' %}
+                                        <a class="active" href="/{{ site }}/category/{{ item.nid }}"
+                                           title="{{ item.title }}"
+                                           draggable="false">
+                                            {{ item.title }}
+                                        </a>
+                                    {% else %}
+                                        <a href="/{{ site }}/category/{{ item.nid }}" title="{{ item.title }}"
+                                           draggable="false">
+                                            {{ item.title }}
+                                        </a>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>
@@ -91,10 +113,41 @@
                         <ul class="plinks ptags">
                             {% for item in tag_list %}
                                 <li>
-                                    <a href="{{ site }}/{{ item.nid }}" title="{{ item.title }}" draggable="false">
-                                        {{ item.title }}
-                                        {#                                        <span class="badge">1</span>#}
-                                    </a>
+                                    {% if val_nid == item.nid and condition == 'tag' %}
+                                        <a class="active" href="/{{ site }}/tag/{{ item.nid }}"
+                                           title="{{ item.title }}"
+                                           draggable="false">
+                                            {{ item.title }}
+                                        </a>
+                                    {% else %}
+                                        <a href="/{{ site }}/tag/{{ item.nid }}" title="{{ item.title }}"
+                                           draggable="false">
+                                            {{ item.title }}
+                                        </a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget widget_sentence">
+                    <h3>日期</h3>
+                    <div class="widget-sentence-content">
+                        <ul class="plinks ptags">
+                            {% for tag in date_list %}
+                                <li>
+                                    {% if val_nid == tag.ctime and condition == 'date' %}
+                                        <a class="active" href="/{{ site }}/date/{{ tag.ctime }}"
+                                           title="{{ tag.title }}"
+                                           draggable="false">
+                                            {{ tag.ctime }} ({{ tag.num }})
+                                        </a>
+                                    {% else %}
+                                        <a href="/{{ site }}/date/{{ tag.ctime }}" title="{{ tag.title }}"
+                                           draggable="false">
+                                            {{ tag.ctime }} ({{ tag.num }})
+                                        </a>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>

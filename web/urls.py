@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^createBlog$', account.create_blog),
     url(r'^all/(?P<article_type_id>\d+)$', home.index, name='index'),
     url(r'^(?P<site>\w+)$', home.home),
+    url(r'^(?P<site>\w+)/(?P<condition>((tag)|(date)|(category)))/(?P<val>\w+-*\w*)$', home.filter_home),
     url(r'^', home.index),
 ]
