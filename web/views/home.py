@@ -101,16 +101,30 @@ def home(request, site):
         print('blog', blog)
         # 没有这个博客 跳转到首页
         if not blog:
-            redirect('/')
+            return redirect('/')
 
         # 登录之后
         if request.session['user_info'] and (not blog['site']):
-            redirect('/createBlog')
+            return redirect('/createBlog')
 
-        tag_list = models.Tag.objects.filter(site=site)
-        category_list = models.Category.objects.filter(site=site)
+        # 标签
+        tag_list = models.Tag.objects.filter(blog__site=site).values('title')
+        print('tag_list', tag_list)
+        # 个人博客分类
+        category_list = models.Category.objects.filter(blog__site=site).values('title')
+        print('category_list', category_list)
+        # Article 文章
+        article_list = models.Article.objects.filter(blog__site=site) \
+            .values('title', 'summary', 'read_count', 'comment_count', 'up_count',
+                    'create_time', 'down_count', 'blog')
+        print('article_list', article_list)
+        return render(request=request, template_name='home.html', context={
+            'tag_list': tag_list,
+            'category_list': category_list,
+            'article_list': article_list
+        })
     else:
-        redirect('/')
+        return redirect('/')
 
 
 def not_found(request):

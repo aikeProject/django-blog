@@ -1,4 +1,4 @@
-{% extends 'layout/_layout.html' %}
+{% extends 'layout/_layout_home.html' %}
 {% load static %}
 {% block title %}
     <title>首页</title>
@@ -8,16 +8,6 @@
     <section class="container">
         <div class="content-wrap">
             <div class="content">
-                {% if article_hot_one %}
-                    <article class="excerpt-minic excerpt-minic-index">
-                        <h2>
-                            <span class="red">【推荐】</span>
-                            <a target="_blank" href="#"
-                               title="{{ article_hot_one.title }}">{{ article_hot_one.title }}</a>
-                        </h2>
-                        <p class="note">{{ article_hot_one.summary }}</p>
-                    </article>
-                {% endif %}
                 <div class="title">
                     <h3>最新发布</h3>
                 </div>
@@ -44,7 +34,7 @@
                             <p class="note">解决要换图标时要连FTP或者开服务器的麻烦</p>
                         </article>
                     {% endfor %}
-                    <nav class="pagination" style="display: none;">
+                    {% comment %}<nav class="pagination" style="display: none;">
                         <ul>
                             <li class="prev-page"></li>
                             {% for item in page_count_list %}
@@ -61,7 +51,7 @@
                             {% endif %}
                             <li><span>共 {{ page_info.total_count }} 页</span></li>
                         </ul>
-                    </nav>
+                    </nav>{% endcomment %}
                 {% else %}
                     <div style="text-align: center;">
                         <img src="{% static '/images/none.jpg' %}" alt="空白背景图">
@@ -69,10 +59,9 @@
                 {% endif %}
             </div>
         </div>
-        <div class="tlinks">Collect from <a href="http://www.cssmoban.com/">企业网站模板</a></div>
         <aside class="sidebar">
-            <div class="fixed">
-                <div class="widget widget-tabs">
+            <div class="">
+                {% comment %}<div class="widget widget-tabs">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active">
                             <a href="#notice" aria-controls="notice" role="tab" data-toggle="tab">统计信息</a>
@@ -83,7 +72,7 @@
                             <h2>日志总数: {{ article_sum }}篇</h2>
                         </div>
                     </div>
-                </div>
+                </div>{% endcomment %}
                 <div class="widget widget_search">
                     <form class="navbar-form" action="/Search" method="post">
                         <div class="input-group">
@@ -96,25 +85,6 @@
                     </form>
                 </div>
             </div>
-            {% if article_comment_list %}
-                <div class="widget widget_hot">
-                    <h3>最新评论文章</h3>
-                    <ul>
-                        {% for item in article_comment_list %}
-                            <li>
-                                <a title="用DTcms做一个独立博客网站（响应式模板）" href="#">
-                                    <span class="text">{{ item.article__title }}</span>
-                                    <span class="muted">
-                                    <i class="glyphicon glyphicon-time"></i>
-                                    {{ item.article__create_time|date:"Y-m-d" }}
-                                </span>
-                                    <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
             <div class="widget widget_sentence">
                 <h3>友情链接</h3>
                 <div class="widget-sentence-link">

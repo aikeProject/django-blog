@@ -1,0 +1,39 @@
+#blogTitle {
+    background: url(/static/images/title-yellow.png) no-repeat center 21px, url(/static/images/body_bg.png) repeat-x scroll 0 0 #f0eef5;
+    height: 314px;
+    clear: both;
+    min-width: 1200px;
+    margin: 0 auto;
+    position: relative
+}
+
+#blogTitle h1 {
+    font-size: 30px;
+    width: 310px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    position: relative;
+    top: 80px;
+    left: 17px;
+    font-weight: normal
+}
+
+#blogTitle h2 {
+    width: 550px;
+    position: relative;
+    height: 75px;
+    line-height: 180%;
+    font-weight: normal;
+    top: 107px;
+    left: 5px;
+    font-size: 16px
+}
+
+#blogTitle h1 a, #blogTitle h2 {
+    color: #fff
+}
+
+#blogLogo {
+    float: right
+}
