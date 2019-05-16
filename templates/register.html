@@ -22,11 +22,13 @@
     <form role="form" id="fm">
         <div class="form-group">
             <label for="username">用户名</label>
-            <input type="email" class="form-control" name="username" id="username" placeholder="请输入用户名">
+            <input type="email" oninput="this.value = $.trim(this.value)" class="form-control" name="username"
+                   id="username" placeholder="请输入用户名">
         </div>
         <div class="form-group">
             <label for="email">邮箱</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="请输入密码">
+            <input type="email" oninput="this.value = $.trim(this.value)" class="form-control" name="email" id="email"
+                   placeholder="请输入密码">
         </div>
         <div class="form-group">
             <label for="password">密码</label>
@@ -54,7 +56,7 @@
 
         </div>
 
-        <div class="btn btn-default" onclick="register()">下一步</div>
+        <div class="btn btn-default" onclick="register()">注册</div>
     </form>
 </div>
 </body>

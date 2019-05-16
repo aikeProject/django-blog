@@ -15,7 +15,7 @@ class LoginForm(BaseForm, forms.Form):
         error_messages={
             'required': '用户名不能为空',
             'min_length': '用户名长度不小于6字符',
-            'max_length': '用户名长度不大于32字符'
+            'max_length': '用户名长度不大于20字符'
         }
     )
 
@@ -97,3 +97,27 @@ class RegisterForm(BaseForm, forms.Form):
             else:
                 from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
                 raise ValidationError('密码输入不一致')
+
+
+class BlogForm(forms.Form):
+    title = fields.CharField(
+        min_length=6,
+        max_length=64,
+        error_messages={
+            'required': '博客标题不能为空',
+            'min_length': '用户名长度不小于6字符',
+            'max_length': '用户名长度不大于32字符'
+        }
+    )
+
+    site = fields.RegexField(
+        regex=r'^\w+$',
+        min_length=4,
+        max_length=32,
+        error_messages={
+            'required': '博客后缀名不能为空',
+            'min_length': '博客后缀名长度不小于6字符',
+            'max_length': '博客后缀名长度不大于32字符',
+            'invalid': '博客后缀名必须由数字、字母、_，组成',
+        }
+    )

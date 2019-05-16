@@ -92,14 +92,25 @@ def home(request, site):
     :return:
     """
 
-    blog = models.Blog.objects.first(site=site).select_related('user').first()
+    if site:
+        blog = models.Blog.objects \
+            .filter(site=site) \
+            .values('title', 'site', 'user', 'user__username', 'user__nickname',
+                    'user__avatar', 'user__email', 'user__creat_time'
+                    ).first()
+        print('blog', blog)
+        # 没有这个博客 跳转到首页
+        if not blog:
+            redirect('/')
 
-    # 没有这个博客 跳转到首页
-    if not blog:
+        # 登录之后
+        if request.session['user_info'] and (not blog['site']):
+            redirect('/createBlog')
+
+        tag_list = models.Tag.objects.filter(site=site)
+        category_list = models.Category.objects.filter(site=site)
+    else:
         redirect('/')
-
-    tag_list = models.Tag.objects.filter(site=site)
-    category_list = models.Category.objects.filter(site=site)
 
 
 def not_found(request):

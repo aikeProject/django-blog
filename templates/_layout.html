@@ -39,6 +39,9 @@
                     {% if request.session.user_info %}
                         <div class="pull-right clearfix">
                             <span>欢迎，{{ request.session.user_info.username }}</span>
+                            <a href="/{{ request.session.user_info.blog__site }}">
+                                <button type="button" class="btn btn-info btn-xs">我的博客</button>
+                            </a>
                             <button type="button" class="btn btn-info btn-xs">管理</button>
                             <a href="/logout">
                                 <button type="button" class="btn btn-info btn-xs">退出登录</button>

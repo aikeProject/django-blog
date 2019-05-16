@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>创建博客</title>
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static '/css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" href="{% static '/css/cyBlog/account.css' %}"/>
+</head>
+<body>
+<div class="login">
+    <div style="font-size: 25px; font-weight: bold;text-align: center;">
+        创建博客
+    </div>
+    <form id="fm">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">博客标题</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="请输入博客标题">
+        </div>
+        <div class="form-group">
+            <label for="password">博客名</label>
+            <input type="text" class="form-control" name="password" id="password" placeholder="请输入博客名">
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <a id="submit" class="btn btn-default">创 建</a>
+            </div>
+            <div class="col-xs-9" style="padding-left: 0;">
+                <div class="alert alert-danger hide">
+                    <span style="padding: 0 5px 0 5px;display: inline-block;font-size: 14px">
+                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    </span>
+                    <span id="error_msg" style="font-size: 12px;"></span>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <script src={% static '/js/jquery-2.1.4.min.js' %}></script>
+    <script type="text/javascript">
+    </script>
+</div>
+</body>
+</html>

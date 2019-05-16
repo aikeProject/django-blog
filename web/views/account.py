@@ -6,7 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from utils.util import u_response
 from utils.check_code import create_validate_code
-from ..forms.account_forms import LoginForm, RegisterForm
+from ..forms.account_forms import LoginForm, RegisterForm, BlogForm
 from repository import models
 
 
@@ -56,6 +56,7 @@ def login(request):
             user_info = models.UserInfo.objects \
                 .filter(username=username, password=password) \
                 .values('nid', 'username', 'nickname', 'email', 'avatar', 'blog__nid', 'blog__site').first()
+            print('user_info', user_info)
             if user_info:
                 result['status'] = True
                 request.session['user_info'] = user_info
@@ -90,3 +91,19 @@ def logout(request):
     """
     request.session.clear()
     return redirect('/')
+
+
+def create_blog(request):
+    if request.method == 'GET':
+        return render(request=request, template_name='create-blog.html')
+
+    if request.method == 'POST':
+        form = BlogForm(request.POST)
+        result = u_response()
+        if form.is_valid():
+            result['status'] = True
+            result['message'] = '创建成功'
+        else:
+            result['status'] = False
+            result['message'] = json.loads(form.errors.as_json())
+        return JsonResponse(result)
