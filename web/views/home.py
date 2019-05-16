@@ -98,7 +98,6 @@ def home(request, site):
             .values('title', 'site', 'user', 'user__username', 'user__nickname',
                     'user__avatar', 'user__email', 'user__creat_time'
                     ).first()
-        print('blog', blog)
         # 没有这个博客 跳转到首页
         if not blog:
             return redirect('/')
@@ -108,20 +107,25 @@ def home(request, site):
             return redirect('/createBlog')
 
         # 标签
-        tag_list = models.Tag.objects.filter(blog__site=site).values('title')
-        print('tag_list', tag_list)
+        tag_list = models.Tag.objects.filter(blog__site=site).values('title', 'nid')
         # 个人博客分类
-        category_list = models.Category.objects.filter(blog__site=site).values('title')
-        print('category_list', category_list)
+        category_list = models.Category.objects.filter(blog__site=site).values('title', 'nid')
         # Article 文章
         article_list = models.Article.objects.filter(blog__site=site) \
             .values('title', 'summary', 'read_count', 'comment_count', 'up_count',
                     'create_time', 'down_count', 'blog')
-        print('article_list', article_list)
+        page_info = Pagination(
+            current_page=request.GET.get('page'),
+            data_count=article_list.count(), per_page_count=5,
+            pager_num=5
+        )
+        article_list = article_list[page_info.start:page_info.end]
         return render(request=request, template_name='home.html', context={
             'tag_list': tag_list,
             'category_list': category_list,
-            'article_list': article_list
+            'article_list': article_list,
+            'site': site,
+            'page_info': page_info
         })
     else:
         return redirect('/')

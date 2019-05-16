@@ -8,16 +8,13 @@
     <section class="container">
         <div class="content-wrap">
             <div class="content">
-                <div class="title">
-                    <h3>最新发布</h3>
-                </div>
                 {% if article_list %}
                     {% for item in article_list %}
                         <article class="excerpt excerpt-1" style="">
                             <header>
-                                <a class="cat" href="#" title="MZ-NetBlog主题">{{ item.title }}<i></i></a>
+                                <a class="cat" href="#" title="{{ item.title }}">{{ item.title }}<i></i></a>
                                 <h2>
-                                    <a href="#" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank">{{ item.summary }}</a>
+                                    <a href="#" title="{{ item.summary }}" target="_blank">{{ item.summary }}</a>
                                 </h2>
                             </header>
                             <p class="meta">
@@ -34,24 +31,24 @@
                             <p class="note">解决要换图标时要连FTP或者开服务器的麻烦</p>
                         </article>
                     {% endfor %}
-                    {% comment %}<nav class="pagination" style="display: none;">
+                    <nav class="pagination" style="display: none;">
                         <ul>
                             <li class="prev-page"></li>
                             {% for item in page_count_list %}
                                 {% if item == page_info.current_page %}
                                     <li class="active"><span>{{ item }}</span></li>
                                 {% else %}
-                                    <li><a href="?page={{ item }}">{{ item }}</a></li>
+                                    <li><a href="{{ site }}?page={{ item }}">{{ item }}</a></li>
                                 {% endif %}
                             {% endfor %}
                             {% if page_info.current_page == page_info.next_page %}
                                 <li class="next-page"><a href="">下一页</a></li>
                             {% else %}
-                                <li class="next-page"><a href="?page={{ page_info.next_page }}">下一页</a></li>
+                                <li class="next-page"><a href="{{ site }}?page={{ page_info.next_page }}">下一页</a></li>
                             {% endif %}
                             <li><span>共 {{ page_info.total_count }} 页</span></li>
                         </ul>
-                    </nav>{% endcomment %}
+                    </nav>
                 {% else %}
                     <div style="text-align: center;">
                         <img src="{% static '/images/none.jpg' %}" alt="空白背景图">
@@ -73,6 +70,36 @@
                         </div>
                     </div>
                 </div>{% endcomment %}
+                <div class="widget widget_sentence">
+                    <h3>分类</h3>
+                    <div class="widget-sentence-content">
+                        <ul class="plinks ptags">
+                            {% for item in category_list %}
+                                <li>
+                                    <a href="{{ site }}/{{ item.nid }}" title="{{ item.title }}" draggable="false">
+                                        {{ item.title }}
+                                        {#                                        <span class="badge">1</span>#}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget widget_sentence">
+                    <h3>标签</h3>
+                    <div class="widget-sentence-content">
+                        <ul class="plinks ptags">
+                            {% for item in tag_list %}
+                                <li>
+                                    <a href="{{ site }}/{{ item.nid }}" title="{{ item.title }}" draggable="false">
+                                        {{ item.title }}
+                                        {#                                        <span class="badge">1</span>#}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
                 <div class="widget widget_search">
                     <form class="navbar-form" action="/Search" method="post">
                         <div class="input-group">
