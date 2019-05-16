@@ -1,7 +1,7 @@
 {% load static %}
 <header class="header">
     <div id="blogTitle">
-        <h1><a id="Header1_HeaderTitle" class="headermaintitle" href="">成雨</a></h1>
+        <h1><a id="Header1_HeaderTitle" class="headermaintitle" href="">{{ blog.user__username }}</a></h1>
         <h2></h2>
     </div>
     <nav class="navbar navbar-default">
@@ -18,7 +18,7 @@
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="active" data-cont="博客" title="博客" href="#">管理</a></li>
+                    <li><a class="active" data-cont="管理" title="管理" href="#">管理</a></li>
                 </ul>
             </div>
         </div>

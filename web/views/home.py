@@ -5,6 +5,7 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Max
 from django.shortcuts import render, redirect
+from django.core import serializers
 from django.urls import reverse
 from repository import models
 from utils.pagination import Pagination
@@ -114,6 +115,7 @@ def home(request, site):
         article_list = models.Article.objects.filter(blog__site=site) \
             .values('title', 'summary', 'read_count', 'comment_count', 'up_count',
                     'create_time', 'down_count', 'blog')
+
         page_info = Pagination(
             current_page=request.GET.get('page'),
             data_count=article_list.count(), per_page_count=5,
@@ -125,7 +127,8 @@ def home(request, site):
             'category_list': category_list,
             'article_list': article_list,
             'site': site,
-            'page_info': page_info
+            'page_info': page_info,
+            'blog': blog
         })
     else:
         return redirect('/')
