@@ -12,9 +12,12 @@
                     {% for item in article_list %}
                         <article class="excerpt excerpt-1" style="">
                             <header>
-                                <a class="cat" href="#" title="{{ item.title }}">{{ item.title }}<i></i></a>
+                                <a class="cat" href="#" title="{{ item.category.title }}">
+                                    {{ item.category.title }}
+                                    <i></i>
+                                </a>
                                 <h2>
-                                    <a href="#" title="{{ item.summary }}" target="_blank">{{ item.summary }}</a>
+                                    <a href="#" title="{{ item.title }}" target="_blank">{{ item.title }}</a>
                                 </h2>
                             </header>
                             <p class="meta">
@@ -25,10 +28,10 @@
                                 <span class="views"><i
                                         class="glyphicon glyphicon-eye-open"></i> {{ item.read_count }}</span>
                                 <a class="comment" href="##comment" title="评论" target="_blank">
-                                    <i class="glyphicon glyphicon-comment"></i> 4
+                                    <i class="glyphicon glyphicon-comment"></i> {{ item.comment_count }}
                                 </a>
                             </p>
-                            <p class="note">解决要换图标时要连FTP或者开服务器的麻烦</p>
+                            <p class="note">{{ item.summary }}</p>
                         </article>
                     {% endfor %}
                     <nav class="pagination" style="display: none;">
